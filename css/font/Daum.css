@@ -1,0 +1,14 @@
+@font-face{
+ font-family:'Daum';
+ font-style:normal;
+ font-weight:400;
+ src:url(Daum/Daum-Regular.woff2) format('woff2'),
+     url(Daum/Daum-Regular.woff) format('woff');
+}
+@font-face{
+ font-family:'Daum';
+ font-style:normal;
+ font-weight:700;
+ src:url(Daum/Daum-SemiBold.woff2) format('woff2'),
+     url(Daum/Daum-SemiBold.woff) format('woff');
+}

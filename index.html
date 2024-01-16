@@ -1,0 +1,533 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>...</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="menu">
+                <a href="#"><img src="images/common/menu.svg" alt="메뉴"></a>
+            </div>
+            <h1 class="logo"><a href="#"><img src="images/common/logo.png" alt=""></a></h1>
+            <ul>
+                <li><a href="#"><img src="images/common/login.svg" alt=""><span>홍길동</span>님</a></li>
+                <li><a href="#">회원정보변경</a></li>
+            </ul>
+            <div class="logout">
+                <a href="#"><img src="images/common/logout.svg" alt=""></a>
+            </div>
+        </header>
+        <nav>
+            <ul class="mnTit">
+                <li>
+                    <a href="#">차량관리<img src="images/common/nav_arrow.png" alt=""></a>
+                    <ul class="subMn">
+                        <li><a href="#"><img src="images/common/manage_icon1.svg" alt=""><i>전체차량리스트</i></a></li>
+                        <li><a href="#"><img src="images/common/manage_icon2.svg" alt=""><i>차량종류</i></a></li>
+                        <li><a href="#"><img src="images/common/manage_icon3.svg" alt=""><i>면세가관리</i></a></li>
+                        <li><a href="#"><img src="images/common/manage_icon4.svg" alt=""><i>차대번호관리</i></a></li>
+                        <li><a href="#"><img src="images/common/manage_icon5.svg" alt=""><i>유대내역</i></a></li>
+                        <li><a href="#"><img src="images/common/manage_icon6.svg" alt=""><i>전체차량현황</i></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="mnTit">
+                <li>
+                    <a href="#">회원관리<img src="images/common/nav_arrow.png" alt=""></a>
+                    <ul class="subMn ">
+                        <li><a href="#"><img src="images/common/member_icon1.svg" alt=""><i>임대사리스트</i></a></li>
+                        <li><a href="#"><img src="images/common/member_icon2.svg" alt=""><i>세금계산서</i></a></li>
+                        <li><a href="#"><img src="images/common/member_icon3.svg" alt=""><i>채권추심현황</i></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="mnTit">
+                <li>
+                    <a href="#">관리자<img src="images/common/nav_arrow.png" alt=""></a>
+                    <ul class="subMn">
+                        <li><a href="#"><img src="images/common/admin_icon1.svg" alt=""><i>시스템관리</i></a></li>
+                        <li><a href="#"><img src="images/common/admin_icon2.svg" alt=""><i>메뉴권한 관리</i></a></li>
+                        <li><a href="#"><img src="images/common/admin_icon3.svg" alt=""><i>작업이력</i></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="container allCarList">
+            <div class="cntTit">
+                <h3 class="now"></h3>
+                <ul class="location">
+                    <li class="parent"></li>
+                    <li>></li>
+                    <li class="now"></li>
+                </ul>
+            </div>
+            <form action="" class="searchForm">
+                <table>
+                    <tr>
+                        <th>법인</th>
+                        <td>
+                            <select class="selectBox">
+                                <option>전체</option>
+                            </select>
+                        </td>
+                        <th>상태</th>
+                        <td>
+                            <select class="selectBox">
+                                <option>전체</option>
+                            </select>
+                        </td>
+                        <th>검색</th>
+                        <td>
+                            <select class="selectBox searchSel">
+                                <option>전체</option>
+                            </select>
+                            <input type="text" class="textField searchEnter" placeholder="검색" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>기간</th>
+                        <td>
+                            <input type="text" class="textField startDate datePicker" id="datePickerSt" placeholder="시작일 선택" />
+                            <input type="text" class="textField endDate datePicker" id="datePickerEn" placeholder="완료일 선택" />
+                        </td>
+                        <th>기타옵션</th>
+                        <td colspan="3">
+                            <div class="checkBox">
+                                <input type="checkbox" id="firstNoneData" />
+                                <i>&nbsp;</i>
+                                <label for="firstNoneData">최초청구일 없는 차량</label>
+                            </div>
+                            <div class="checkBox">
+                                <input type="checkbox" id="lastNoneData" />
+                                <i>&nbsp;</i>
+                                <label for="lastNoneData" style="padding-left: 20px;">&nbsp;</label>
+                                <input type="text" id="monthChk" class="monthBox" disabled />
+                                <label for="monthChk" class="monthChk">개월이상 미수</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="bottomBtn">
+                    <a href="#" class="commBtn typeWhite">초기화</a>
+                    <a href="#" class="commBtn typeRed">검색</a>
+                    <button type="button" class="detailsBtn"><i><img src="images/common/search_arrow.png" /></i>상세검색</button>
+                </div>
+            </form>
+            <form action="" class="tableForm">
+                <div class="topTxt">
+                    <ul>
+                        <li>전체 차량수<span>00</span>건</li>
+                        <li>장기<span>00</span>대</li>
+                        <li>단기<span>00</span>대</li>
+                        <li>대기<span>00</span>대</li>
+                        <li>말소<span>00</span>대</li>
+                    </ul>
+                    <div class="rightBtnBox">
+                        <a href="" class="commBtn print"><img src="images/common/print_icon.svg" alt="">출력</a>
+                        <a href="" class="commBtn excel"><img src="images/common/download_icon.svg" alt="">엑셀다운로드</a>
+                        <a href="" class="commBtn newCar">신규차량등록</a>
+                        <select name="" class="selectBox number">
+                            <option>20개씩</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="hasTopTHtable">
+                    <!--Cell Header-->
+                    <div class="cellHeader">
+                        <table>
+                            <colgroup>
+                                <col width="70" />
+                                <col width="70" />
+                                <col width="9.5%" />
+                                <col width="90" />
+                                <col width="13%" />
+                                <col width="11%" />
+                                <col width="100" />
+                                <col width="90" />
+                                <col width="180" />
+                                <col width="100" />
+                                <col width="100" />
+                                <col width="5.5%" />
+                                <col width="6%" />
+                                <col width="6%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>상태</th>
+                                    <th>법인명</th>
+                                    <th>차량번호</th>
+                                    <th>차량명</th>
+                                    <th>임대사</th>
+                                    <th>차량검사일</th>
+                                    <th>담당자</th>
+                                    <th>임대기간</th>
+                                    <th>최초등록일</th>
+                                    <th>차량만기일</th>
+                                    <th>보유영업</th>
+                                    <th>주행거리</th>
+                                    <th>미수</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <!--//Cell Header-->
+                    <!--Cell Body-->
+                    <div class="cellBody">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>20</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 부산지점</td>
+                                    <td>02하6001</td>
+                                    <td>스타렉스 9인승 웨건 익스클루시브</td>
+                                    <td>㈜아이디어뮤직엔터테인먼트<br>코리아</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>부산딜카</td>
+                                    <td>167,000km</td>
+                                    <td>2,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>19</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 부산지점</td>
+                                    <td>02하6001</td>
+                                    <td>그렌져IG LPG 3.0 모던</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td class="col_red">2021.10.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td class="col_red">2,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>18</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜</td>
+                                    <td>02하6001</td>
+                                    <td>BMW X4 xDrive20d M sport</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td>2021.10.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>부산딜카</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr class="short">
+                                    <td>17</td>
+                                    <td>단기</td>
+                                    <td>경동렌트카㈜ 대구지점</td>
+                                    <td>02하6001</td>
+                                    <td>A5 Sportback 2.0 TDI quattro</td>
+                                    <td>㈜아메바컬쳐</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>2,000,000원</td>
+                                </tr>
+                                <tr class="wait">
+                                    <td>16</td>
+                                    <td>대기</td>
+                                    <td>경동렌트카㈜ 부산지점</td>
+                                    <td>02하6001</td>
+                                    <td>스타렉스 9인승 웨건 익스클루시브</td>
+                                    <td>㈜아이디어뮤직엔터테인먼트<br>코리아</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>부산딜카</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr class="short">
+                                    <td>15</td>
+                                    <td>단기</td>
+                                    <td>경동렌트카㈜</td>
+                                    <td>02하6001</td>
+                                    <td>그렌져IG LPG 3.0 모던</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>14</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 대구지점</td>
+                                    <td>02하6001</td>
+                                    <td>BMW X4 xDrive20d M sport</td>
+                                    <td>㈜아메바컬쳐</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>부산딜카</td>
+                                    <td>167,000km</td>
+                                    <td>2,000,000원</td>
+                                </tr>
+                                <tr class="short">
+                                    <td>13</td>
+                                    <td>단기</td>
+                                    <td>경동렌트카㈜ 부산지점</td>
+                                    <td>02하6001</td>
+                                    <td>A5 Sportback 2.0 TDI quattro</td>
+                                    <td>㈜아메바컬쳐</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td class="col_red">2,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜</td>
+                                    <td>02하6001</td>
+                                    <td>스타렉스 9인승 웨건 익스클루시브</td>
+                                    <td>㈜아이디어뮤직엔터테인먼트<br>코리아</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>부산딜카</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 대구지점</td>
+                                    <td>02하6001</td>
+                                    <td>그렌져IG LPG 3.0 모던</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td class="col_red">2021.10.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>2,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 부산지점</td>
+                                    <td>02하6001</td>
+                                    <td>BMW X4 xDrive20d M sport</td>
+                                    <td>㈜아이디어뮤직엔터테인먼트<br>코리아</td>
+                                    <td>2021.10.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>부산딜카</td>
+                                    <td>167,000km</td>
+                                    <td>2,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜</td>
+                                    <td>02하6001</td>
+                                    <td>A5 Sportback 2.0 TDI quattro</td>
+                                    <td>㈜아이디어뮤직엔터테인먼트<br>코리아</td>
+                                    <td class="col_red">2021.10.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 대구지점</td>
+                                    <td>02하6001</td>
+                                    <td>스타렉스 9인승 웨건 익스클루시브</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td class=>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 부산지점</td>
+                                    <td>02하6001</td>
+                                    <td>그렌져IG LPG 3.0 모던</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr class="wait">
+                                    <td>6</td>
+                                    <td>대기</td>
+                                    <td>경동렌트카㈜</td>
+                                    <td>02하6001</td>
+                                    <td>BMW X4 xDrive20d M sport</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr class="wait">
+                                    <td>5</td>
+                                    <td>대기</td>
+                                    <td>경동렌트카㈜ 대구지점</td>
+                                    <td>02하6001</td>
+                                    <td>스타렉스 9인승 웨건 익스클루시브</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 부산지점</td>
+                                    <td>02하6001</td>
+                                    <td>스타렉스 9인승 웨건 익스클루시브</td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td class="col_red">2021.10.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr class="short">
+                                    <td>3</td>
+                                    <td>단기</td>
+                                    <td>경동렌트카㈜</td>
+                                    <td>02하6001</td>
+                                    <td>그렌져IG LPG 3.0 모던 </td>
+                                    <td>㈜YG엔터테인먼트</td>
+                                    <td class="col_red">2021.10.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>장기</td>
+                                    <td>경동렌트카㈜ 대구지점</td>
+                                    <td>02하6001</td>
+                                    <td>스타렉스 9인승 웨건 익스클루시브</td>
+                                    <td>㈜아메바컬쳐</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                                <tr class="wait">
+                                    <td>1</td>
+                                    <td>대기</td>
+                                    <td>경동렌트카㈜ 부산지점</td>
+                                    <td>02하6001</td>
+                                    <td>A5 Sportback 2.0 TDI quattro</td>
+                                    <td>㈜아메바컬쳐</td>
+                                    <td>2021.11.26</td>
+                                    <td>홍길동</td>
+                                    <td>2019.12.04 ~ 2022.12.03</td>
+                                    <td>2019.11.27</td>
+                                    <td>2027.11.26</td>
+                                    <td>양재</td>
+                                    <td>167,000km</td>
+                                    <td>5,000,000원</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--//Cell Body-->
+                </div>
+            </form>
+            <ul class="pageNum">
+                <li><a href="#"><img src="images/common/number_icon_l1.svg" alt=""></a></li>
+                <li><a href="#"><img src="images/common/number_icon_l2.svg" alt=""></a></li>
+                <li><a href="#" class="pgNum">1</a></li>
+                <li><a href="#" class="pgNum">2</a></li>
+                <li><a href="#" class="pgNum">3</a></li>
+                <li><a href="#" class="pgNum">4</a></li>
+                <li><a href="#" class="pgNum">5</a></li>
+                <li><a href="#"><img src="images/common/number_icon_r2.svg" alt=""></a></li>
+                <li><a href="#"><img src="images/common/number_icon_r1.svg" alt=""></a></li>
+            </ul>
+        </div>
+        <footer>
+            <p>Copyright ⓒKYOUNGDONG R&D. ALLRIGHT RESERVED</p>
+        </footer>
+    </div>
+</body>
+</html>
