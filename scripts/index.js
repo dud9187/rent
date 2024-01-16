@@ -1,7 +1,6 @@
 
 
 $(document).ready(function(){
-	console.log($.datepicker);
     $('.menu a').click(function(){
         if($(this).hasClass('on') == true){
             $(this).removeClass('on');
